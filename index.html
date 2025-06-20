@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .text-primary {
+            color: #1e3a5f !important;
+        }
+        
+        .btn-primary {
+            background-color: #1e3a5f;
+            border-color: #1e3a5f;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2c5282;
+            border-color: #2c5282;
+        }
+        
+        .sidebar {
+            background: #ffffff;
+            min-height: calc(100vh - 56px);
+            border-right: 1px solid #e2e8f0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar-header {
+            padding: 1.5rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        
+        .sidebar-header h6 {
+            color: #1e3a5f;
+            font-weight: 600;
+            margin: 0;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .sidebar .nav {
+            padding: 1rem 0;
+        }
+        
+        .sidebar .nav-link {
+            color: #64748b;
+            padding: 0.875rem 1.5rem;
+            margin: 0.125rem 0.75rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: none;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .sidebar .nav-link i {
+            width: 20px;
+            margin-right: 0.75rem;
+            font-size: 1rem;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: #f1f5f9;
+            color: #1e3a5f;
+            transform: translateX(2px);
+        }
+        
+        .sidebar .nav-link.active {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(30, 58, 95, 0.3);
+        }
+        
+        .sidebar .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 20px;
+            background: white;
+            border-radius: 0 3px 3px 0;
+        }
+        
+        .sidebar-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            border-top: 1px solid #e2e8f0;
+            background: #f8fafc;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e3a5f, #2c5282);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        
+        .user-details h6 {
+            margin: 0;
+            font-size: 0.8rem;
+            color: #1e3a5f;
+            font-weight: 600;
+        }
+        
+        .user-details small {
+            color: #64748b;
+            font-size: 0.7rem;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .employee-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, #2d3748, #4a5568);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .stats-card {
+            background: linear-gradient(135deg, #1e3a5f, #2c5282);
+            color: white;
+        }
+        
+        .bg-success {
+            background-color: #059669 !important;
+        }
+        
+        .bg-warning {
+            background-color: #d97706 !important;
+        }
+        
+        .bg-danger {
+            background-color: #dc2626 !important;
+        }
+        
+        .badge.bg-primary {
+            background-color: #1e3a5f !important;
+        }
+        
+        .btn-outline-primary {
+            border-color: #1e3a5f;
+            color: #1e3a5f;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: #1e3a5f;
+            border-color: #1e3a5f;
+        }
+        
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-card">
+            <div class="text-center mb-4">
+                <i class="fas fa-building fa-4x text-primary mb-3"></i>
+                <h2 class="fw-bold">Employee Management</h2>
+                <p class="text-muted">HR Admin Portal</p>
+            </div>
+            <form id="loginForm">
+                <div class="mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                        <input type="text" class="form-control" id="username" placeholder="Username" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        <input type="password" class="form-control" id="password" placeholder="Password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 py-2">
+                    <i class="fas fa-sign-in-alt me-2"></i>Access Portal
+                </button>
+            </form>
+            <div class="text-center mt-3">
+                <small class="text-muted">Demo: Use any credentials</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" class="hidden">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand text-primary fw-bold" href="#">
+                    <i class="fas fa-users-cog me-2"></i>Employee Management
+                </a>
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="#" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt me-1"></i>Logout
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-3 col-lg-2 px-0">
+                    <div class="sidebar position-relative">
+                        <div class="sidebar-header">
+                            <h6>NAVIGATION</h6>
+                        </div>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#" onclick="showPage('dashboard')">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="showPage('employees')">
+                                    <i class="fas fa-users"></i>
+                                    <span>Employees</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="showPage('reports')">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <span>Reports</span>
+                                </a>
+                            </li>
+                        </ul>
+                        
+                        <div class="sidebar-footer">
+                            <div class="user-info">
+                                <div class="user-avatar">HR</div>
+                                <div class="user-details">
+                                    <h6>HR Admin</h6>
+                                    <small>Administrator</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-md-9 col-lg-10 p-4">
+                    <!-- Dashboard -->
+                    <div id="dashboardPage" class="page-content">
+                        <h1 class="mb-4">HR Dashboard</h1>
+                        <div class="row mb-4">
+                            <div class="col-md-3 mb-3">
+                                <div class="card stats-card text-center p-3">
+                                    <i class="fas fa-users fa-2x mb-2"></i>
+                                    <h4>248</h4>
+                                    <p class="mb-0">Total Employees</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card bg-success text-white text-center p-3">
+                                    <i class="fas fa-building fa-2x mb-2"></i>
+                                    <h4>12</h4>
+                                    <p class="mb-0">Departments</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card bg-warning text-white text-center p-3">
+                                    <i class="fas fa-user-clock fa-2x mb-2"></i>
+                                    <h4>15</h4>
+                                    <p class="mb-0">On Leave</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card bg-danger text-white text-center p-3">
+                                    <i class="fas fa-dollar-sign fa-2x mb-2"></i>
+                                    <h4>$2.8M</h4>
+                                    <p class="mb-0">Payroll</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Recent Activities</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="employee-avatar me-3" style="width: 40px; height: 40px; font-size: 1rem;">SJ</div>
+                                    <div>
+                                        <strong>Sarah Johnson</strong> submitted leave request
+                                        <br><small class="text-muted">IT Department • 2 hours ago</small>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="employee-avatar me-3" style="width: 40px; height: 40px; font-size: 1rem;">MR</div>
+                                    <div>
+                                        <strong>Michael Rodriguez</strong> completed performance review
+                                        <br><small class="text-muted">Sales Department • 4 hours ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Employees -->
+                    <div id="employeesPage" class="page-content hidden">
+                        <h1 class="mb-4">Employee Directory</h1>
+                        <div class="row" id="employeesList">
+                            <!-- Generated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Reports -->
+                    <div id="reportsPage" class="page-content hidden">
+                        <h1 class="mb-4">Reports</h1>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">Department Distribution</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="departmentChart" width="400" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">Salary Overview</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="salaryChart" width="400" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script>
+        // Employee data
+        const employees = [
+            { id: 1, name: 'Sarah Johnson', department: 'IT', position: 'Senior Developer', salary: 85000, status: 'Active' },
+            { id: 2, name: 'Michael Rodriguez', department: 'Sales', position: 'Sales Manager', salary: 75000, status: 'Active' },
+            { id: 3, name: 'Emma Chen', department: 'Marketing', position: 'Marketing Specialist', salary: 60000, status: 'On Leave' },
+            { id: 4, name: 'David Wilson', department: 'IT', position: 'IT Director', salary: 120000, status: 'Active' },
+            { id: 5, name: 'Lisa Anderson', department: 'Sales', position: 'Sales Director', salary: 110000, status: 'Active' },
+            { id: 6, name: 'James Brown', department: 'Marketing', position: 'Marketing Director', salary: 105000, status: 'Active' }
+        ];
+
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (document.getElementById('username').value && document.getElementById('password').value) {
+                document.getElementById('loginPage').classList.add('hidden');
+                document.getElementById('mainApp').classList.remove('hidden');
+                generateEmployees();
+                initializeCharts();
+            }
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('mainApp').classList.add('hidden');
+            document.getElementById('loginPage').classList.remove('hidden');
+        });
+
+        // Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(page => page.classList.add('hidden'));
+            document.querySelectorAll('.sidebar .nav-link').forEach(link => link.classList.remove('active'));
+            document.getElementById(pageId + 'Page').classList.remove('hidden');
+            event.target.classList.add('active');
+        }
+
+        // Generate employees
+        function generateEmployees() {
+            const list = document.getElementById('employeesList');
+            list.innerHTML = '';
+            
+            employees.forEach(emp => {
+                const initials = emp.name.split(' ').map(n => n[0]).join('');
+                const statusColor = emp.status === 'Active' ? 'success' : 'warning';
+                
+                list.innerHTML += `
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card text-center p-3">
+                            <div class="employee-avatar">${initials}</div>
+                            <h5>${emp.name}</h5>
+                            <p class="text-muted">${emp.position}</p>
+                            <p>
+                                <span class="badge bg-primary">${emp.department}</span>
+                                <span class="badge bg-${statusColor}">${emp.status}</span>
+                            </p>
+                            <p class="fw-bold">$${emp.salary.toLocaleString()}/year</p>
+                            <button class="btn btn-outline-primary btn-sm" onclick="viewEmployee(${emp.id})">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // View employee
+        function viewEmployee(id) {
+            const emp = employees.find(e => e.id === id);
+            alert(`${emp.name}\n${emp.department} - ${emp.position}\nSalary: $${emp.salary.toLocaleString()}\nStatus: ${emp.status}`);
+        }
+
+        // Initialize charts
+        function initializeCharts() {
+            // Department chart
+            new Chart(document.getElementById('departmentChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['IT', 'Sales', 'Marketing'],
+                    datasets: [{
+                        data: [2, 2, 2],
+                        backgroundColor: ['#1e3a5f', '#059669', '#d97706']
+                    }]
+                }
+            });
+
+            // Salary chart
+            new Chart(document.getElementById('salaryChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['$60K-80K', '$80K-100K', '$100K+'],
+                    datasets: [{
+                        label: 'Employees',
+                        data: [2, 1, 3],
+                        backgroundColor: '#2d3748'
+                    }]
+                }
+            });
+        }
+    </script>
+</body>
+</html>
